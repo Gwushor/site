@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../content/site';
+import { href } from '../lib/url';
+---
+
+<BaseLayout>
+  <section class="hero">
+    <div>
+      <span class="kicker hero__kicker">{site.home.kicker}</span>
+      <h1>
+        <span class="riso" data-text={site.title}>{site.title}</span>
+      </h1>
+      <p class="hero__lead">{site.lead}</p>
+      <p class="hero__intro">{site.home.intro}</p>
+    </div>
+
+    <div class="hero__side">
+      <div class="stamp">
+        <span class="tape" aria-hidden="true"></span>
+        <p class="stamp__title">{site.status}</p>
+        <p class="stamp__note">{site.statusNote}</p>
+        <div class="stamp__meta">
+          <span class="chip chip--a">astro</span>
+          <span class="chip chip--b">github pages</span>
+          <span class="chip chip--c">рисограф</span>
+        </div>
+      </div>
+      <a class="btn btn--blue" href={href('/about')}>о сайте →</a>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <section class="section section--split">
+    <div>
+      <span class="kicker">00 — статус</span>
+      <h2 style="margin-top:12px">каркас стоит,<br />краска сохнет</h2>
+    </div>
+    <p class="quote">
+      Страницы, тексты и проекты — следующая партия печати. Пока здесь только имя проекта и честная
+      строка «сайт в разработке».
+    </p>
+  </section>
+</BaseLayout>

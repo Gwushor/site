@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../content/site';
+import { href } from '../lib/url';
+
+const { kicker, title, paragraphs, facts } = site.about;
+---
+
+<BaseLayout title={title} description={paragraphs[0]}>
+  <div class="page-head">
+    <span class="kicker">{kicker}</span>
+    <h1>
+      <span class="riso" data-text={title}>{title}</span>
+    </h1>
+  </div>
+
+  <hr class="rule" />
+
+  <section class="section section--split">
+    <div class="prose">
+      {paragraphs.map((text) => <p>{text}</p>)}
+    </div>
+
+    <dl class="facts">
+      {facts.map(([term, value]) => (
+        <div class="facts__row">
+          <dt>{term}</dt>
+          <dd>{value}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <div class="backline">
+    <a class="btn" href={href('/')}>← на главную</a>
+    <span class="kicker">роутинг работает</span>
+  </div>
+</BaseLayout>

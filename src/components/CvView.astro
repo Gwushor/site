@@ -1,0 +1,340 @@
+---
+import { content } from '../content';
+import type { Lang } from '../content';
+import '../styles/cv.css';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].cv;
+const num = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<svg class="riso-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- развод: печать по мокрой бумаге — край ползёт по волокну -->
+    <filter id="riso-bleed" x="-10%" y="-25%" width="120%" height="150%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.16" numOctaves="3" seed="7" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.4" xChannelSelector="R" yChannelSelector="G" result="moved" />
+      <feGaussianBlur in="moved" stdDeviation="0.35" />
+    </filter>
+
+    <!-- пятно: та же краска, но расплылась и высохла неровно -->
+    <filter id="riso-stain" x="-25%" y="-45%" width="150%" height="190%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="4" seed="19" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" result="moved" />
+      <feGaussianBlur in="moved" stdDeviation="2.6" />
+    </filter>
+  </defs>
+</svg>
+
+<div class="sheet">
+  <header class="masthead">
+    <div class="masthead-top">
+      <p class="kicker">{t.kicker}</p>
+      <p class="kicker">{t.contacts[0].label}</p>
+    </div>
+
+    <h1 class="masthead-title">
+      <span class="given">{t.given}</span>
+      <span class="riso">
+        {t.family}
+        <span class="pass pass--pink" data-text={t.family} aria-hidden="true"></span>
+      </span>
+    </h1>
+
+    <p class="masthead-role">{t.role}</p>
+
+    <ul class="contact">
+      {t.contacts.map((contact) => (
+        <li class={`chip${contact.href.startsWith('mailto:') ? ' chip--a' : ''}`}>
+          {contact.href ? <a href={contact.href}>{contact.label}</a> : contact.label}
+        </li>
+      ))}
+    </ul>
+  </header>
+
+  <div class="layout">
+    <aside class="rail">
+      <div class="rail-card">
+        <nav aria-label={t.navAria}>
+          <ol class="rail-nav">
+            {t.sectionNav.map((item, i) => (
+              <li>
+                <a href={`#${item.id}`}>
+                  <span class="n">{num(i)}</span>
+                  <span>{item.label}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <div class="rail-tools">
+          <button class="switch-row" type="button" data-night aria-pressed="false">
+            <span>{t.tools.night}</span>
+            <span class="switch" aria-hidden="true"><span class="switch-thumb"></span></span>
+          </button>
+          <button class="btn" type="button" data-print-btn>{t.tools.print}</button>
+        </div>
+
+        <p class="rail-note">{t.tools.railNote}</p>
+      </div>
+    </aside>
+
+    <div class="cv-main">
+      <section class="block" id="summary">
+        <div class="block-head">
+          <span class="block-num">{num(0)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.summary.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.summary.title} aria-hidden="true"></span>
+            {t.summary.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        {t.summary.leads.map((lead, i) => (
+          <p class="lead">{i === t.summary.leads.length - 1 ? <em>{lead}</em> : lead}</p>
+        ))}
+      </section>
+
+      <section class="block" id="numbers">
+        <div class="block-head">
+          <span class="block-num">{num(1)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.numbers.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.numbers.title} aria-hidden="true"></span>
+            {t.numbers.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <div class="vitals-stack">
+          <div class="ps-inner">
+            <div class="ps-layer ps-layer--1"></div>
+            <div class="ps-layer ps-layer--2"></div>
+            <div class="vitals">
+              <div class="tape"></div>
+              {t.numbers.items.map((plate, i) => (
+                <div class={`plate${i === 0 ? ' plate--accent' : ''}`}>
+                  <span class="plate-value">{plate.value}</span>
+                  <span class="plate-unit">{plate.unit}</span>
+                  <p class="plate-label">{plate.label}</p>
+                  <span class="plate-source">{plate.source}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="path">
+        <div class="block-head">
+          <span class="block-num">{num(2)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.path.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.path.title} aria-hidden="true"></span>
+            {t.path.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <ol class="timeline" aria-label={t.path.title}>
+          {t.experience.roles.map((role) => (
+            <li class="timeline-item">
+              <span class="timeline-marker" aria-hidden="true"></span>
+              <span class="timeline-connector" aria-hidden="true"></span>
+              <span class="timeline-title">{role.company}</span>
+              <time class="timeline-time">{role.period}</time>
+              <span class="timeline-desc">{role.title}</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="block" id="experience">
+        <div class="block-head">
+          <span class="block-num">{num(3)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.experience.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.experience.title} aria-hidden="true"></span>
+            {t.experience.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <div class="roles">
+          {t.experience.roles.map((role, i) => (
+            <article class="role">
+              <header class="role-head">
+                <span class="role-idx">{num(i)}</span>
+                <span class="role-main">
+                  <span class="role-title">{role.title}</span>
+                  <span class="role-co">{role.company} · {role.place}</span>
+                </span>
+                <span class="role-period">{role.period}</span>
+              </header>
+              <div class="role-body">
+                <p class="role-blurb">{role.blurb}</p>
+                <p class="stack-line">
+                  {role.stack.map((tool) => <span class="chip">{tool}</span>)}
+                </p>
+                <ul class="points">
+                  {role.points.map((point) => <li>{point}</li>)}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="block" id="review">
+        <div class="block-head">
+          <span class="block-num">{num(4)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.review.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.review.title} aria-hidden="true"></span>
+            {t.review.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <p class="kicker">{t.review.kicker}</p>
+        {t.review.paragraphs.map((text) => <p class="notes-p">{text}</p>)}
+      </section>
+
+      <section class="block" id="open-source">
+        <div class="block-head">
+          <span class="block-num">{num(5)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.openSource.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.openSource.title} aria-hidden="true"></span>
+            {t.openSource.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <div class="repos">
+          {t.openSource.repos.map((repo) => (
+            <div class="repo">
+              <a class="repo-name" href={repo.href}>{repo.name}</a>
+              <p class="repo-desc">{repo.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="block" id="skills">
+        <div class="block-head">
+          <span class="block-num">{num(6)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.skills.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.skills.title} aria-hidden="true"></span>
+            {t.skills.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <div class="skills">
+          {t.skills.groups.map((group) => (
+            <div class="skill-row">
+              <p class="skill-label">{group.label}</p>
+              <p class="skill-items">
+                {group.items.map((item) => <span class="chip">{item}</span>)}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="block" id="education">
+        <div class="block-head">
+          <span class="block-num">{num(7)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.education.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.education.title} aria-hidden="true"></span>
+            {t.education.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <div class="pair">
+          <div class="card">
+            <h3>{t.education.educationTitle}</h3>
+            {t.education.entries.map((entry) => (
+              <div class="entry">
+                <p class="entry-school">{entry.school}</p>
+                <p class="entry-degree">{entry.degree}</p>
+                <p class="entry-year">{entry.year}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="card">
+            <h3>{t.education.languagesTitle}</h3>
+            {t.education.languages.map((language) => (
+              <div class="entry">
+                <p class="entry-school">{language.name}</p>
+                <p class="entry-degree">{language.level}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="fine-print">
+        <div class="block-head">
+          <span class="block-num">{num(8)}</span>
+          <h2>
+            <span class="pass pass--bleed" data-text={t.finePrint.title} aria-hidden="true"></span>
+            <span class="pass pass--stain" data-text={t.finePrint.title} aria-hidden="true"></span>
+            {t.finePrint.title}
+          </h2>
+          <span class="spacer"></span>
+        </div>
+        <ul class="facts">
+          {t.finePrint.items.map((fact) => <li>{fact}</li>)}
+        </ul>
+      </section>
+
+      <footer class="cv-foot">
+        <div class="cv-foot-row">
+          <p class="kicker">{t.printTitle}</p>
+          <p class="kicker">{t.contacts[3].label}</p>
+        </div>
+        <p class="colophon">Set in Bricolage Grotesque, Space Mono and Fraunces, printed on screen in six risograph inks.</p>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { risoSheet } from '../lib/pixel-sheet';
+
+  const root = document.documentElement;
+  const nightBtn = document.querySelector<HTMLButtonElement>('[data-night]');
+  const printBtn = document.querySelector<HTMLButtonElement>('[data-print-btn]');
+
+  const setNight = (night: boolean) => {
+    if (night) root.setAttribute('data-print', 'night');
+    else root.removeAttribute('data-print');
+    nightBtn?.setAttribute('aria-pressed', String(night));
+    try {
+      localStorage.setItem('print', night ? 'night' : 'day');
+    } catch {
+      /* приватный режим: переключатель работает только в этой сессии */
+    }
+  };
+
+  try {
+    const saved = localStorage.getItem('print');
+    setNight(saved ? saved === 'night' : window.matchMedia('(prefers-color-scheme: dark)').matches);
+  } catch {
+    setNight(false);
+  }
+
+  nightBtn?.addEventListener('click', () => {
+    setNight(nightBtn.getAttribute('aria-pressed') !== 'true');
+  });
+
+  printBtn?.addEventListener('click', () => window.print());
+
+  // одна красочная плашка под чипами навыков: каждый чип — окно, вырезанное в ней
+  const skills = document.querySelector<HTMLElement>('#skills .skills');
+  if (skills) risoSheet(skills, { cells: '.chip' });
+</script>

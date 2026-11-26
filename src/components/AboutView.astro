@@ -1,0 +1,43 @@
+---
+import { content } from '../content';
+import type { Lang } from '../content';
+import { href } from '../lib/url';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].about;
+---
+
+<div class="page-head">
+  <span class="kicker">{t.kicker}</span>
+  <h1 class="riso-head">
+    <span class="pass pass--pink" data-text={t.title} aria-hidden="true"></span>
+    <span class="pass pass--blue" data-text={t.title} aria-hidden="true"></span>
+    {t.title}
+  </h1>
+</div>
+
+<hr class="rule" />
+
+<section class="section section--split">
+  <div class="prose">
+    {t.paragraphs.map((text) => <p>{text}</p>)}
+  </div>
+
+  <dl class="facts">
+    {t.facts.map(([term, value]) => (
+      <div class="facts__row">
+        <dt>{term}</dt>
+        <dd>{value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<div class="backline">
+  <a class="btn" href={href(lang === 'en' ? '/en' : '/')}>← {content[lang].meta.nav[0].label}</a>
+  <span class="kicker">роутинг работает</span>
+</div>

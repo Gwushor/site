@@ -1,0 +1,11 @@
+---
+import ProjectView from '../../../components/ProjectView.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { content } from '../../../content';
+
+const t = content.en.alpha;
+---
+
+<BaseLayout lang="en" path="/projects/alpha" title={t.title} description={t.tagline}>
+  <ProjectView lang="en" which="alpha" />
+</BaseLayout>

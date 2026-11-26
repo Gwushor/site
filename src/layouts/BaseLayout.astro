@@ -1,57 +1,79 @@
 ---
-import { site } from '../content/site';
+import { content, localPath } from '../content';
+import type { Lang } from '../content';
 import { asset, href } from '../lib/url';
 import '../styles/riso.css';
 
 interface Props {
+  lang: Lang;
+  /** Путь страницы без base: '/', '/about', '/projects/alpha', '/cv'. */
+  path: string;
   title?: string;
   description?: string;
 }
 
-const { title, description = site.lead } = Astro.props;
-const pageTitle = title ? `${title} — ${site.title}` : `${site.title} — ${site.owner}`;
+const { lang, path, title, description } = Astro.props;
+const t = content[lang];
+const pageTitle = title ? `${title} — ${t.meta.title}` : `${t.meta.title} — ${t.meta.owner}`;
+const desc = description ?? t.meta.lead;
+const other: Lang = lang === 'ru' ? 'en' : 'ru';
 
-const nav = [
-  { label: 'главная', path: '/' },
-  { label: 'о сайте', path: '/about' },
-];
-
+const nav = t.meta.nav.map((item) => ({ ...item, url: href(localPath(item.path, lang)) }));
 const here = Astro.url.pathname.replace(/\/+$/, '');
-const isCurrent = (path: string) => href(path).replace(/\/+$/, '') === here;
+const isCurrent = (itemPath: string) => href(localPath(itemPath, lang)).replace(/\/+$/, '') === here;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const altRu = new URL(href(localPath(path, 'ru')), Astro.site);
+const altEn = new URL(href(localPath(path, 'en')), Astro.site);
 ---
 
 <!doctype html>
-<html lang="ru">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={desc} />
     <link rel="icon" href={asset('/favicon.svg')} type="image/svg+xml" />
     <meta name="theme-color" content="#F3EDE0" />
     <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={desc} />
     <meta property="og:type" content="website" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'en_US'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ru" href={altRu} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altRu} />
   </head>
   <body class="grain">
-    <a class="skip" href="#main">к содержимому</a>
+    <a class="skip" href="#main">{t.meta.skip}</a>
 
     <header class="top">
       <div class="wrap top__row">
-        <a class="brand" href={href('/')}>
-          {site.title}
-          <span class="brand__dot">{site.owner}</span>
+        <a class="brand" href={href(localPath('/', lang))}>
+          {t.meta.title}
+          <span class="brand__dot">{t.meta.owner}</span>
         </a>
-        <nav aria-label="разделы сайта">
+        <nav aria-label={t.meta.navAria}>
           <ul class="nav">
             {nav.map((item) => (
               <li>
-                <a href={href(item.path)} aria-current={isCurrent(item.path) ? 'page' : undefined}>
+                <a href={item.url} aria-current={isCurrent(item.path) ? 'page' : undefined}>
                   {item.label}
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                class="nav__lang"
+                href={href(localPath(path, other))}
+                lang={other}
+                hreflang={other}
+                aria-label={t.meta.switchAria}
+              >
+                {t.meta.switchLabel}
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
@@ -63,8 +85,8 @@ const isCurrent = (path: string) => href(path).replace(/\/+$/, '') === here;
 
     <footer class="foot">
       <div class="wrap foot__row">
-        <span>{site.title} · {site.owner}</span>
-        <span>{site.footer}</span>
+        <span>{t.meta.title} · {t.meta.owner}</span>
+        <span>{t.meta.footer}</span>
       </div>
     </footer>
   </body>

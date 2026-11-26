@@ -1,0 +1,11 @@
+---
+import CvView from '../components/CvView.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { content } from '../content';
+
+const t = content.ru.cv;
+---
+
+<BaseLayout lang="ru" path="/cv" title={t.printTitle} description={t.summary.leads[0]}>
+  <CvView lang="ru" />
+</BaseLayout>

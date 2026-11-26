@@ -2,6 +2,7 @@
 import { content } from '../content';
 import type { Lang } from '../content';
 import '../styles/cv.css';
+import '../styles/cv-print.css';
 
 interface Props {
   lang: Lang;
@@ -214,7 +215,11 @@ const num = (i: number) => String(i + 1).padStart(2, '0');
         <div class="repos">
           {t.openSource.repos.map((repo) => (
             <div class="repo">
-              <a class="repo-name" href={repo.href}>{repo.name}</a>
+              {repo.href ? (
+                <a class="repo-name" href={repo.href}>{repo.name}</a>
+              ) : (
+                <span class="repo-name repo-name--plain">{repo.name}</span>
+              )}
               <p class="repo-desc">{repo.desc}</p>
             </div>
           ))}

@@ -54,7 +54,7 @@ export interface CvPage {
   path: { title: string };
   experience: { title: string; roles: CvRole[] };
   review: { title: string; kicker: string; paragraphs: string[] };
-  openSource: { title: string; repos: { name: string; href: string; desc: string }[] };
+  openSource: { title: string; repos: { name: string; href?: string; desc: string }[] };
   skills: { title: string; groups: { label: string; items: string[] }[] };
   education: {
     title: string;

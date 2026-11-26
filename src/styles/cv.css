@@ -1,11 +1,6 @@
 /* CV — страница резюме внутри сайта. Токены и базовые элементы — в riso.css,
    здесь только разметка резюме и печать в A4 (port of resume-site/src/app.css). */
 
-@page {
-  size: A4;
-  margin: 9mm 10mm;
-}
-
 .riso-defs {
   position: absolute;
   width: 0;
@@ -601,6 +596,11 @@
   text-decoration-color: var(--ink);
 }
 
+/* имя без ссылки — приватный код, ссылка дала бы 404 */
+.repo-name--plain {
+  text-decoration: none;
+}
+
 .repo-desc {
   font-size: 13.5px;
   line-height: 1.55;
@@ -763,213 +763,4 @@ ul.facts {
   line-height: 1.7;
   color: var(--ink-3);
   max-width: 64ch;
-}
-
-/* ---- печать: A4, как печатается PDF ---- */
-
-@media print {
-  :root,
-  [data-print='night'] {
-    --paper: #fff;
-    --paper-2: #fff;
-    --paper-3: #d8d2c6;
-    --ink: #111;
-    --ink-2: #222;
-    --ink-3: #444;
-  }
-
-  /* сайт остаётся на экране: на бумаге только резюме */
-  .top,
-  .foot,
-  .skip,
-  .rail,
-  .tape,
-  .pix-sheet,
-  .ps-layer,
-  #path,
-  .colophon {
-    display: none !important;
-  }
-
-  /* зерно на бумаге только раздувает PDF: печать и так растровая */
-  .grain::after {
-    display: none !important;
-  }
-
-  .wrap {
-    max-width: none;
-    padding: 0;
-  }
-
-  body {
-    font-size: 10pt;
-  }
-
-  .sheet {
-    padding: 0;
-  }
-
-  .layout {
-    display: block;
-  }
-
-  .masthead {
-    gap: 8pt;
-    padding-bottom: 10pt;
-    margin-bottom: 14pt;
-  }
-
-  .masthead-title {
-    font-size: 38pt;
-  }
-
-  .masthead-top {
-    margin-bottom: 4pt;
-  }
-
-  .masthead-role {
-    font-size: 13pt;
-  }
-
-  .contact .chip {
-    font-size: 9pt;
-    padding: 2pt 6pt;
-  }
-
-  .lead {
-    font-size: 10.5pt;
-    line-height: 1.5;
-  }
-
-  .block {
-    margin-bottom: 8pt;
-  }
-
-  .block-head {
-    break-after: avoid;
-  }
-
-  .points {
-    gap: 2px;
-    font-size: 9.5pt;
-    line-height: 1.38;
-  }
-
-  .role-head {
-    padding: 7pt 9pt;
-    break-after: avoid;
-    box-shadow: none;
-  }
-
-  .role {
-    box-shadow: none;
-    background: #fff;
-  }
-
-  .role-body {
-    padding: 0 9pt 8pt;
-    gap: 4pt;
-  }
-
-  .role-blurb {
-    font-size: 11pt;
-  }
-
-  .pair {
-    display: grid;
-    gap: 8pt;
-    break-inside: auto;
-  }
-
-  .pair .card {
-    padding: 8pt;
-    gap: 6pt;
-    break-inside: auto;
-  }
-
-  .card h3 {
-    font-size: 10pt;
-    margin-bottom: 1pt;
-  }
-
-  .entry {
-    padding: 1pt 0;
-  }
-
-  .vitals {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8pt;
-    break-inside: avoid;
-  }
-
-  .plate {
-    padding: 6pt;
-  }
-
-  .plate-value {
-    font-size: 22pt;
-  }
-
-  .repo,
-  .skill-row {
-    padding: 3pt 0;
-  }
-
-  /* чипы на бумаге становятся простым списком: пилюли съедают страницу */
-  .chip {
-    border: 0;
-    border-radius: 0;
-    background: none;
-    padding: 0;
-    font-size: 9pt;
-    text-transform: none;
-    letter-spacing: 0;
-    white-space: normal;
-    color: #111;
-  }
-
-  .chip:not(:last-child)::after {
-    content: ' ·';
-  }
-
-  .skill-items,
-  .stack-line {
-    gap: 1pt 4pt;
-  }
-
-  /* мелкий шрифт читается как мелкий шрифт: без заголовка, одной строкой */
-  #fine-print .block-head {
-    display: none;
-  }
-
-  ul.facts {
-    display: block;
-    font-size: 8.5pt;
-    line-height: 1.32;
-  }
-
-  .facts li {
-    display: inline;
-  }
-
-  .facts li + li::before {
-    content: ' ';
-  }
-
-  .cv-foot {
-    margin-top: 4pt;
-    padding-top: 4pt;
-    gap: 4pt;
-    break-inside: avoid;
-  }
-
-  a {
-    color: #111;
-    text-decoration: none;
-  }
-
-  * {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
 }

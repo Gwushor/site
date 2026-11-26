@@ -194,7 +194,7 @@ export const en: SiteContent = {
     role: 'Senior backend engineer, Go. The money path of event-driven systems, five years in.',
     contacts: [
       { label: 'Moscow, Fili', href: '' },
-      { label: '+7 (985) 977-51-65', href: 'tel:+798****5165' },
+      { label: '+7 (985) 977-51-65', href: 'tel:+79859775165' },
       { label: 't.me/Grushor', href: 'https://t.me/Grushor' },
       { label: 'thegrushor@gmail.com', href: 'mailto:thegrushor@gmail.com' },
       { label: 'github.com/Gwushor', href: 'https://github.com/Gwushor' },
@@ -216,7 +216,7 @@ export const en: SiteContent = {
       leads: [
         'Five years of production Go on money systems: an order book and account sharding at a bank, the payment flow at a marketplace, event streaming at Sber. I designed the event-driven architecture of a banking service and led three engineers without the title.',
         'The focus: distributed event-driven systems and microservices in fintech and e-commerce — real-time command and event processing (Kafka, EventStoreDB), inter-service communication strategy.',
-        'What I bring: production exactly-once event handling, a habit of designing for replay, and an open-source matching engine at 76.6 ns per crossing order, about 13M orders a second on one core.',
+        'What I bring: production exactly-once event handling, a habit of designing for replay, and a matching engine at 76.6 ns per crossing order, about 13M orders a second on one core.',
       ],
     },
     numbers: {
@@ -247,7 +247,6 @@ export const en: SiteContent = {
             'Integrated GigaChat, a large language model, into the bank’s closed perimeter: REST and gRPC wrapper, streamed responses, prompt pipeline — no data left the perimeter.',
             'The ecosystem integration layer: chats, tasks, GigaChat and internal services — heterogeneous vendor APIs behind one contract.',
             'Inter-service communication strategy and architecture design of the service.',
-            'A task process for backend development, with separate strategies for services and libraries.',
           ],
         },
         {
@@ -262,7 +261,7 @@ export const en: SiteContent = {
             'The money cycle from cart to charge on Stripe: order state, payment statuses, idempotency on repeated provider callbacks.',
             'A user chat over WebSocket with Firebase notifications: one connection per client, delivery both ways without polling.',
             'A generator of API documentation and Postman collections from Go sources, so the docs always matched the code; released later as go-postman-66.',
-            'Tree product categorisation of 40,000+ categories, listings and reviews with multilingual translation, and a seller dashboard.',
+            'Listings and reviews with multilingual translation, and a seller dashboard.',
           ],
         },
         {
@@ -292,7 +291,6 @@ export const en: SiteContent = {
           stack: ['Go', 'React.js', 'Python', 'NumPy'],
           points: [
             'Web dashboards in Go and React.js; statistical and financial data analysis in Python and NumPy.',
-            'Web parsers and scrapers, text sentiment processing (NLP) from external sources.',
           ],
         },
       ],
@@ -310,7 +308,6 @@ export const en: SiteContent = {
       repos: [
         {
           name: 'pit',
-          href: 'https://github.com/Gwushor/pit',
           desc: 'A deterministic matching engine (Central Limit Order Book) in Go: price-time priority, an event-sourced journal with exact replay. Benchmarks: 76.6 ns per crossing order, about 13M orders a second on one core; 1.67 ms to replay 20k events.',
         },
         {
@@ -328,16 +325,6 @@ export const en: SiteContent = {
           href: 'https://github.com/Gwushor/go-postman-66',
           desc: 'A generator of documentation and Postman collections from Go sources; the codegen I first built for the Kangaroo backend.',
         },
-        {
-          name: 'jobwatch',
-          href: 'https://github.com/Gwushor/jobwatch',
-          desc: 'A job-hunting daemon: a vacancy aggregator, a filter on a local LLM, an agent that parses postings into Telegram cards.',
-        },
-        {
-          name: 'localmix',
-          href: 'https://github.com/Gwushor/localmix',
-          desc: 'A local LLM inference stack on llama.cpp: three models, a CLI, no cloud.',
-        },
       ],
     },
     skills: {
@@ -348,8 +335,6 @@ export const en: SiteContent = {
         { label: 'Infrastructure', items: ['Docker', 'Kubernetes', 'Linux', 'systemd', 'Git'] },
         { label: 'Observability', items: ['OpenTelemetry', 'Jaeger', 'Vector'] },
         { label: 'LLM integration', items: ['OpenAI-compatible API', 'llama.cpp', 'headless agents', 'prompt pipelines'] },
-        { label: 'Systems programming', items: ['content-addressed storage', 'applied cryptography', 'git plumbing', 'Telegram Bot API'] },
-        { label: 'Language tooling', items: ['LSP', 'interprocedural static analysis', 'editor extensions (Zed)'] },
         { label: 'Architecture and practices', items: ['microservices', 'event-driven architecture', 'Event Sourcing', 'CQRS', 'DDD', 'SOLID', 'deterministic replay', 'unit, fuzz and property-based tests', 'benchmarks'] },
       ],
     },

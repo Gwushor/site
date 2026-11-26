@@ -194,7 +194,7 @@ export const ru: SiteContent = {
     role: 'Бэкенд-инженер на Go. Денежный путь событийных систем, пять лет.',
     contacts: [
       { label: 'Москва, м. Фили', href: '' },
-      { label: '+7 (985) 977-51-65', href: 'tel:+798****5165' },
+      { label: '+7 (985) 977-51-65', href: 'tel:+79859775165' },
       { label: 't.me/Grushor', href: 'https://t.me/Grushor' },
       { label: 'thegrushor@gmail.com', href: 'mailto:thegrushor@gmail.com' },
       { label: 'github.com/Gwushor', href: 'https://github.com/Gwushor' },
@@ -216,7 +216,7 @@ export const ru: SiteContent = {
       leads: [
         'Бэкенд-разработчик, 5 лет на Go. Строю событийные бэкенды для денежных систем: order book и шардирование счетов в банке, платёжный поток в маркетплейсе, стриминг событий в Сбере. Проектировал архитектуру банковских сервисов и вёл команду из трёх человек — задачи senior-уровня.',
         'Специализация — распределённые событийные системы и микросервисы в финтехе и e-commerce: обработка команд и событий в реальном времени (Kafka, EventStoreDB), стратегии межсервисной коммуникации.',
-        'Что привношу: production exactly-once обработку событий, привычку проектировать под replay и open-source matching engine — 76 нс на пересекающуюся заявку, около 13 млн заявок в секунду на ядро.',
+        'Что привношу: production exactly-once обработку событий, привычку проектировать под replay и matching engine — 76.6 нс на пересекающуюся заявку, около 13 млн заявок в секунду на ядро.',
       ],
     },
     numbers: {
@@ -247,7 +247,6 @@ export const ru: SiteContent = {
             'Интеграция GigaChat (LLM) в закрытый продуктовый контур банка: REST/gRPC-обвязка, стриминг ответов, промпт-пайплайн — без выхода данных за периметр.',
             'Интеграционный слой экосистемы: чаты, задачи, GigaChat и внутренние сервисы — разнородные API вендоров за одним контрактом.',
             'Стратегии межсервисной коммуникации и участие в проектировании архитектуры проекта.',
-            'Процесс ведения задач для backend-разработки с раздельными стратегиями для сервисов и библиотек.',
           ],
         },
         {
@@ -262,7 +261,7 @@ export const ru: SiteContent = {
             'Денежный цикл от корзины до списания на Stripe: состояние заказа, статусы платежа, идемпотентность при повторных уведомлениях провайдера.',
             'Пользовательский чат на WebSocket с уведомлениями через Firebase: соединение на клиента, доставка в обе стороны без поллинга.',
             'Генератор документации и Postman-коллекций из Go-исходников: API-документация всегда совпадает с кодом; позже вышел в open source как go-postman-66.',
-            'Древовидная категоризация товаров на 40 000+ категорий, объявления и отзывы с мультиязычным переводом, панель управления для продавцов.',
+            'Объявления и отзывы с мультиязычным переводом, панель управления для продавцов.',
           ],
         },
         {
@@ -292,7 +291,6 @@ export const ru: SiteContent = {
           stack: ['Go', 'React.js', 'Python', 'NumPy'],
           points: [
             'Веб-дашборды на Go и React.js; анализ статистических и финансовых данных на Python и NumPy.',
-            'Веб-парсеры и скраперы, обработка тональности текста (NLP) из внешних источников.',
           ],
         },
       ],
@@ -310,7 +308,6 @@ export const ru: SiteContent = {
       repos: [
         {
           name: 'pit',
-          href: 'https://github.com/Gwushor/pit',
           desc: 'Детерминированный matching engine (Central Limit Order Book) на Go: price-time priority, event-sourced журнал с точным replay. Бенчмарки: 76.6 нс на пересекающуюся заявку, около 13 млн заявок/с на ядро; 1.67 мс на replay 20k событий.',
         },
         {
@@ -328,16 +325,6 @@ export const ru: SiteContent = {
           href: 'https://github.com/Gwushor/go-postman-66',
           desc: 'Генератор документации и Postman-коллекций из Go-исходников; кодген, впервые написанный для бэкенда Kangaroo.',
         },
-        {
-          name: 'jobwatch',
-          href: 'https://github.com/Gwushor/jobwatch',
-          desc: 'Демон поиска работы: агрегатор вакансий, фильтр на локальной LLM, агент-разбор с карточками в Telegram.',
-        },
-        {
-          name: 'localmix',
-          href: 'https://github.com/Gwushor/localmix',
-          desc: 'Локальный стек LLM-инференса на llama.cpp: три модели, CLI, без облака.',
-        },
       ],
     },
     skills: {
@@ -348,8 +335,6 @@ export const ru: SiteContent = {
         { label: 'Инфраструктура', items: ['Docker', 'Kubernetes', 'Linux', 'systemd', 'Git'] },
         { label: 'Наблюдаемость', items: ['OpenTelemetry', 'Jaeger', 'Vector'] },
         { label: 'LLM-интеграции', items: ['OpenAI-compatible API', 'llama.cpp', 'headless-агенты', 'промпт-пайплайны'] },
-        { label: 'Системное программирование', items: ['content-addressed storage', 'прикладная криптография', 'git plumbing', 'Telegram Bot API'] },
-        { label: 'Инструменты языка', items: ['LSP', 'межпроцедурный статический анализ', 'расширения редакторов (Zed)'] },
         { label: 'Архитектура и практики', items: ['микросервисы', 'event-driven', 'Event Sourcing', 'CQRS', 'DDD', 'SOLID', 'deterministic replay', 'unit-, fuzz- и property-based тесты', 'бенчмарки'] },
       ],
     },

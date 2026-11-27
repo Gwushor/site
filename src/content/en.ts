@@ -247,6 +247,7 @@ export const en: SiteContent = {
             'Integrated GigaChat, a large language model, into the bank’s closed perimeter: REST and gRPC wrapper, streamed responses, prompt pipeline — no data left the perimeter.',
             'The ecosystem integration layer: chats, tasks, GigaChat and internal services — heterogeneous vendor APIs behind one contract.',
             'Inter-service communication strategy and architecture design of the service.',
+            'A task process for backend development, with separate strategies for services and libraries.',
           ],
         },
         {
@@ -261,7 +262,7 @@ export const en: SiteContent = {
             'The money cycle from cart to charge on Stripe: order state, payment statuses, idempotency on repeated provider callbacks.',
             'A user chat over WebSocket with Firebase notifications: one connection per client, delivery both ways without polling.',
             'A generator of API documentation and Postman collections from Go sources, so the docs always matched the code; released later as go-postman-66.',
-            'Listings and reviews with multilingual translation, and a seller dashboard.',
+            'Tree product categorisation of 40,000+ categories, listings and reviews with multilingual translation, and a seller dashboard.',
           ],
         },
         {
@@ -291,6 +292,7 @@ export const en: SiteContent = {
           stack: ['Go', 'React.js', 'Python', 'NumPy'],
           points: [
             'Web dashboards in Go and React.js; statistical and financial data analysis in Python and NumPy.',
+            'Web parsers and scrapers, text sentiment processing (NLP) from external sources.',
           ],
         },
       ],
@@ -325,6 +327,16 @@ export const en: SiteContent = {
           href: 'https://github.com/Gwushor/go-postman-66',
           desc: 'A generator of documentation and Postman collections from Go sources; the codegen I first built for the Kangaroo backend.',
         },
+        {
+          name: 'jobwatch',
+          href: 'https://github.com/Gwushor/jobwatch',
+          desc: 'A job-hunting daemon: a vacancy aggregator, a filter on a local LLM, an agent that parses postings into Telegram cards.',
+        },
+        {
+          name: 'localmix',
+          href: 'https://github.com/Gwushor/localmix',
+          desc: 'A local LLM inference stack on llama.cpp: three models, a CLI, no cloud.',
+        },
       ],
     },
     skills: {
@@ -335,6 +347,8 @@ export const en: SiteContent = {
         { label: 'Infrastructure', items: ['Docker', 'Kubernetes', 'Linux', 'systemd', 'Git'] },
         { label: 'Observability', items: ['OpenTelemetry', 'Jaeger', 'Vector'] },
         { label: 'LLM integration', items: ['OpenAI-compatible API', 'llama.cpp', 'headless agents', 'prompt pipelines'] },
+        { label: 'Systems programming', items: ['content-addressed storage', 'applied cryptography', 'git plumbing', 'Telegram Bot API'] },
+        { label: 'Language tooling', items: ['LSP', 'interprocedural static analysis', 'editor extensions (Zed)'] },
         { label: 'Architecture and practices', items: ['microservices', 'event-driven architecture', 'Event Sourcing', 'CQRS', 'DDD', 'SOLID', 'deterministic replay', 'unit, fuzz and property-based tests', 'benchmarks'] },
       ],
     },

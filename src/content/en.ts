@@ -7,6 +7,28 @@ export const en: SiteContent = {
     title: 'site',
     owner: 'Nikita Makarichev',
     lead: 'Backend engineer on Go. Money engines, event-driven systems, tools I build for myself.',
+    pages: {
+      home: {
+        title: 'Nikita Makarichev — Backend Engineer',
+        description: 'Backend engineer on Go from Moscow: money engines, event-driven systems, and tools I build for myself.',
+      },
+      about: {
+        title: 'Nikita Makarichev — about the site',
+        description: 'How this site works: a static Astro build styled as a risograph zine, a project showcase and a resume page.',
+      },
+      cv: {
+        title: 'Nikita Makarichev — Résumé',
+        description: 'Five years of production Go: a bank, a marketplace, Sber — experience, numbers and stack, ready to print on A4.',
+      },
+      alpha: {
+        title: 'alpha — risk gate and bet execution',
+        description: 'Trading and betting engines in Go: one data bus, a risk gate with a proved core, and idempotent bet execution.',
+      },
+      hq: {
+        title: 'hq — personal super-app',
+        description: 'A personal super-app on one server and one database: SyncSource adapters, panels for everything.',
+      },
+    },
     footer: 'print — risograph, build — astro',
     skip: 'skip to content',
     navAria: 'site sections',

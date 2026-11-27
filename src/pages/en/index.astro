@@ -2,8 +2,9 @@
 import HomeView from '../../components/HomeView.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { content } from '../../content';
+const seo = content.en.meta.pages.home;
 ---
 
-<BaseLayout lang="en" path="/" description={content.en.home.lead}>
+<BaseLayout lang="en" path="/" title={seo.title} description={seo.description}>
   <HomeView lang="en" />
 </BaseLayout>

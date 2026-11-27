@@ -3,9 +3,9 @@ import AboutView from '../../components/AboutView.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { content } from '../../content';
 
-const t = content.en.about;
+const seo = content.en.meta.pages.about;
 ---
 
-<BaseLayout lang="en" path="/about" title={t.title} description={t.paragraphs[0]}>
+<BaseLayout lang="en" path="/about" title={seo.title} description={seo.description}>
   <AboutView lang="en" />
 </BaseLayout>

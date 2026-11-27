@@ -1,0 +1,9 @@
+---
+import HomeView from '../../components/HomeView.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { content } from '../../content';
+---
+
+<BaseLayout lang="en" path="/" description={content.en.home.lead}>
+  <HomeView lang="en" />
+</BaseLayout>

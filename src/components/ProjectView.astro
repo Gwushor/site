@@ -1,0 +1,97 @@
+---
+import { content, localPath } from '../content';
+import type { Lang } from '../content';
+import { href } from '../lib/url';
+
+interface Props {
+  lang: Lang;
+  which: 'alpha' | 'hq';
+}
+
+const { lang, which } = Astro.props;
+const t = content[lang][which];
+const home = content[lang].meta.nav[0].label;
+---
+
+<div class="page-head">
+  <span class="kicker">{t.kicker}</span>
+  <h1 class="riso-head">
+    <span class="pass pass--pink" data-text={t.title} aria-hidden="true"></span>
+    <span class="pass pass--blue" data-text={t.title} aria-hidden="true"></span>
+    {t.title}
+  </h1>
+  <p class="hero__lead">{t.tagline}</p>
+</div>
+
+<hr class="rule" />
+
+<section class="section section--split">
+  <div>
+    <span class="kicker">01 — {t.task.title}</span>
+    <h2 class="proj-head" style="margin-top:12px">{t.task.title}</h2>
+  </div>
+  <div class="prose">
+    {t.task.paragraphs.map((text) => <p>{text}</p>)}
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section class="section">
+  <div class="section-head">
+    <span class="kicker">02 — {t.architecture.title}</span>
+    <h2 class="proj-head">{t.architecture.title}</h2>
+  </div>
+  <p class="prose" style="margin-bottom:20px">{t.architecture.intro}</p>
+
+  <p class="kicker" style="margin-bottom:10px">{t.architecture.flowLabel}</p>
+  <ol class="flow" aria-label={t.architecture.flowLabel}>
+    {t.architecture.flow.map((step) => (
+      <li class="flow__item">
+        <span class="flow__step">{step}</span>
+      </li>
+    ))}
+  </ol>
+
+  <dl class="layers">
+    {t.architecture.layers.map((layer) => (
+      <div class="layer">
+        <dt class="layer__name">{layer.name}</dt>
+        <dd class="layer__text">{layer.text}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<hr class="rule" />
+
+<section class="section section--split">
+  <div>
+    <span class="kicker">03 — {t.stack.title}</span>
+    <h2 class="proj-head" style="margin-top:12px">{t.stack.title}</h2>
+  </div>
+  <div>
+    <div class="stamp__meta">
+      {t.stack.items.map((item) => <span class="chip">{item}</span>)}
+    </div>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section class="section">
+  <div class="section-head">
+    <span class="kicker">04 — {t.proven.title}</span>
+    <h2 class="proj-head">{t.proven.title}</h2>
+  </div>
+  <ul class="points">
+    {t.proven.items.map((item) => <li>{item}</li>)}
+  </ul>
+
+  <p class="quote" style="margin-top:28px">{t.status}</p>
+</section>
+
+<div class="backline">
+  <a class="btn" href={href(localPath('/', lang))}>← {home}</a>
+  <a class="btn" href={href(localPath('/cv', lang))}>{content[lang].meta.nav[3].label} →</a>
+</div>

@@ -1,0 +1,13 @@
+---
+// BaseLayout (riso.css) импортируется первым: печатные стили CvView должны
+// идти после него в бандле, иначе :root из riso.css перебивает print-токены.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CvView from '../../components/CvView.astro';
+import { content } from '../../content';
+
+const t = content.en.cv;
+---
+
+<BaseLayout lang="en" path="/cv" title={t.printTitle} description={t.summary.leads[0]}>
+  <CvView lang="en" />
+</BaseLayout>

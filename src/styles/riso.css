@@ -451,3 +451,133 @@ main { flex: 1; }
   .btn { transition: none; }
   .stamp { transform: none; }
 }
+
+/* =====================================================================
+   site: витрина проектов — проходы краски, карточки, схемы
+   ===================================================================== */
+
+/* Печатные проходы: пустые aria-hidden спаны с копией текста — имя заголовка
+   не троится, копирование берёт только настоящий текст (skill risograph-zine-ui). */
+.pass {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: var(--mix);
+  z-index: -1;
+}
+
+.pass::before { content: attr(data-text); }
+
+.pass--pink { color: var(--D); transform: translate(-0.04em, -0.02em); }
+.pass--blue { color: var(--A); transform: translate(0.04em, 0.02em); }
+
+.riso-head { position: relative; isolation: isolate; }
+
+.nav a.nav__lang { background: var(--paper-2); border-style: dashed; }
+.nav a.nav__lang:hover { background: var(--B); }
+
+.section-head { display: grid; gap: 12px; margin-bottom: 24px; }
+
+.proj-head { font-size: clamp(26px, 4.5vw, 52px); }
+
+.cards {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 24px;
+}
+
+.card__title {
+  position: relative;
+  isolation: isolate;
+  font-size: clamp(34px, 5vw, 52px);
+  margin: 14px 0 10px;
+}
+
+.card__line { margin-bottom: 18px; max-width: 40ch; }
+
+/* Поток данных: ступени в рамке, между ними стрелки. */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.flow__item { display: inline-flex; align-items: center; gap: 12px; }
+
+.flow__item:not(:last-child)::after {
+  content: '→';
+  font-family: var(--f-mono);
+  color: var(--ink-3);
+}
+
+.flow__step {
+  display: inline-flex;
+  padding: 8px 12px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper-2);
+  border: 2px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Слои архитектуры: имя пакета слева, разбор справа. */
+.layers { margin: 24px 0 0; border-top: 2px solid var(--ink); }
+
+.layer {
+  display: grid;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--paper-3);
+}
+
+.layer__name {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--A);
+  font-weight: 700;
+}
+
+.layer__text { margin: 0; font-size: 14px; line-height: 1.6; color: var(--ink-2); max-width: 72ch; }
+
+@media (min-width: 720px) {
+  .layer { grid-template-columns: 180px minmax(0, 1fr); gap: 20px; }
+}
+
+/* Список доказанного: ромб краски вместо буллета. */
+.points {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  max-width: 72ch;
+  list-style: none;
+}
+
+.points > li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.points > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  background: var(--A);
+  transform: rotate(45deg);
+}

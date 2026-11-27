@@ -1,0 +1,11 @@
+---
+import AboutView from '../../components/AboutView.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { content } from '../../content';
+
+const t = content.en.about;
+---
+
+<BaseLayout lang="en" path="/about" title={t.title} description={t.paragraphs[0]}>
+  <AboutView lang="en" />
+</BaseLayout>

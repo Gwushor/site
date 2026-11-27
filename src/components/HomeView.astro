@@ -1,0 +1,78 @@
+---
+import { content, localPath } from '../content';
+import type { Lang } from '../content';
+import { href } from '../lib/url';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].home;
+const P = (path: string) => href(localPath(path, lang));
+const name = `${t.h1given} ${t.h1family}`;
+---
+
+<section class="hero">
+  <div>
+    <span class="kicker hero__kicker">{t.kicker}</span>
+    <h1 class="riso-head">
+      <span class="pass pass--pink" data-text={name} aria-hidden="true"></span>
+      <span class="pass pass--blue" data-text={name} aria-hidden="true"></span>
+      {name}
+    </h1>
+    <p class="hero__lead">{t.lead}</p>
+    <p class="hero__intro">{t.intro}</p>
+  </div>
+
+  <div class="hero__side">
+    <div class="stamp">
+      <span class="tape" aria-hidden="true"></span>
+      <p class="stamp__title">{t.status}</p>
+      <p class="stamp__note">{t.statusNote}</p>
+      <div class="stamp__meta">
+        {t.chips.map((chip, i) => (
+          <span class={`chip chip--${['a', 'b', 'c'][i] ?? ''}`}>{chip}</span>
+        ))}
+      </div>
+    </div>
+    <a class="btn btn--blue" href={P(t.cv.path)}>{t.cv.cta}</a>
+    <a class="btn" href="#projects">{t.projectsTitle} ↓</a>
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section class="section" id="projects">
+  <div class="section-head">
+    <span class="kicker">01 — {t.projectsTitle}</span>
+  </div>
+  <div class="cards">
+    {t.projects.map((project, i) => (
+      <article class="card">
+        <span class={`chip chip--${i === 0 ? 'd' : 'w'}`}>{project.kicker}</span>
+        <h2 class="card__title">
+          <span class="pass pass--blue" data-text={project.title} aria-hidden="true"></span>
+          {project.title}
+        </h2>
+        <p class="card__line">{project.line}</p>
+        <a class="btn" href={P(project.path)}>{project.cta}</a>
+      </article>
+    ))}
+  </div>
+</section>
+
+<hr class="rule" />
+
+<section class="section section--split">
+  <div>
+    <span class="kicker">02 — {t.cv.kicker}</span>
+    <h2 class="riso-head" style="margin-top:12px">{t.cv.title}</h2>
+  </div>
+  <div>
+    <p class="quote">{t.cv.line}</p>
+    <p style="margin-top:18px">
+      <a class="btn btn--primary" href={P(t.cv.path)}>{t.cv.cta}</a>
+    </p>
+  </div>
+</section>

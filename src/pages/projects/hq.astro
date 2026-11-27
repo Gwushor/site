@@ -1,0 +1,11 @@
+---
+import ProjectView from '../../components/ProjectView.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { content } from '../../content';
+
+const t = content.ru.hq;
+---
+
+<BaseLayout lang="ru" path="/projects/hq" title={t.title} description={t.tagline}>
+  <ProjectView lang="ru" which="hq" />
+</BaseLayout>

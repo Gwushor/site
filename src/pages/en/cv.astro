@@ -5,9 +5,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CvView from '../../components/CvView.astro';
 import { content } from '../../content';
 
-const t = content.en.cv;
+const seo = content.en.meta.pages.cv;
 ---
 
-<BaseLayout lang="en" path="/cv" title={t.printTitle} description={t.summary.leads[0]}>
+<BaseLayout lang="en" path="/cv" title={seo.title} description={seo.description}>
   <CvView lang="en" />
 </BaseLayout>

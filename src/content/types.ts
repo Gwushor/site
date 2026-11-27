@@ -6,6 +6,12 @@ export interface NavItem {
   path: string;
 }
 
+/** Полные title/description страницы для <title> и og — без склейки с именем проекта. */
+export interface Seo {
+  title: string;
+  description: string;
+}
+
 export interface Teaser {
   kicker: string;
   title: string;
@@ -80,6 +86,7 @@ export interface SiteContent {
     switchLabel: string;
     switchAria: string;
     nav: NavItem[];
+    pages: Record<'home' | 'about' | 'cv' | 'alpha' | 'hq', Seo>;
   };
   home: {
     kicker: string;

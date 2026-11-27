@@ -3,9 +3,9 @@ import ProjectView from '../../components/ProjectView.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { content } from '../../content';
 
-const t = content.ru.alpha;
+const seo = content.ru.meta.pages.alpha;
 ---
 
-<BaseLayout lang="ru" path="/projects/alpha" title={t.title} description={t.tagline}>
+<BaseLayout lang="ru" path="/projects/alpha" title={seo.title} description={seo.description}>
   <ProjectView lang="ru" which="alpha" />
 </BaseLayout>

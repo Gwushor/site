@@ -8,14 +8,15 @@ interface Props {
   lang: Lang;
   /** Путь страницы без base: '/', '/about', '/projects/alpha', '/cv'. */
   path: string;
-  title?: string;
-  description?: string;
+  /** Полный <title> страницы из content.meta.pages — без склейки с именем проекта. */
+  title: string;
+  description: string;
 }
 
 const { lang, path, title, description } = Astro.props;
 const t = content[lang];
-const pageTitle = title ? `${title} — ${t.meta.title}` : `${t.meta.title} — ${t.meta.owner}`;
-const desc = description ?? t.meta.lead;
+const pageTitle = title;
+const desc = description;
 const other: Lang = lang === 'ru' ? 'en' : 'ru';
 
 const nav = t.meta.nav.map((item) => ({ ...item, url: href(localPath(item.path, lang)) }));

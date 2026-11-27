@@ -37,6 +37,21 @@ export interface ProjectPage {
   status: string;
 }
 
+export interface BlogPage {
+  kicker: string;
+  title: string;
+  lead: string;
+  empty: string;
+  emptyNote: string;
+  tagsLabel: string;
+  backToList: string;
+  tocTitle: string;
+  translationLabel: string;
+  feedLabel: string;
+  feedTitle: string;
+  feedDescription: string;
+}
+
 export interface CvRole {
   title: string;
   company: string;
@@ -86,7 +101,7 @@ export interface SiteContent {
     switchLabel: string;
     switchAria: string;
     nav: NavItem[];
-    pages: Record<'home' | 'about' | 'cv' | 'alpha' | 'hq', Seo>;
+    pages: Record<'home' | 'about' | 'cv' | 'alpha' | 'hq' | 'blog', Seo>;
   };
   home: {
     kicker: string;
@@ -107,6 +122,7 @@ export interface SiteContent {
     paragraphs: string[];
     facts: [string, string][];
   };
+  blog: BlogPage;
   alpha: ProjectPage;
   hq: ProjectPage;
   cv: CvPage;

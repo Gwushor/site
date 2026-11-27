@@ -28,6 +28,10 @@ export const ru: SiteContent = {
         title: 'hq — личный super-app',
         description: 'Личный super-app на одном сервере и одной базе: адаптеры SyncSource, панели на все случаи.',
       },
+      blog: {
+        title: 'Никита Макаричев — блог',
+        description: 'Посты по дате: заметки и разборы с тегами и языком каждого поста.',
+      },
     },
     footer: 'печать — рисограф, сборка — astro',
     skip: 'к содержимому',
@@ -38,6 +42,7 @@ export const ru: SiteContent = {
       { label: 'главная', path: '/' },
       { label: 'alpha', path: '/projects/alpha' },
       { label: 'hq', path: '/projects/hq' },
+      { label: 'блог', path: '/blog' },
       { label: 'резюме', path: '/cv' },
       { label: 'о сайте', path: '/about' },
     ],
@@ -94,6 +99,21 @@ export const ru: SiteContent = {
       ['стиль', 'PLAYERPRINT · рисограф-зин'],
       ['языки', 'русский, english'],
     ],
+  },
+
+  blog: {
+    kicker: 'блог',
+    title: 'блог',
+    lead: 'Посты по дате: темы тегами, язык каждого поста помечен.',
+    empty: 'пока пусто',
+    emptyNote: 'Первый пост ещё не написан.',
+    tagsLabel: 'теги',
+    backToList: '← к списку постов',
+    tocTitle: 'содержание',
+    translationLabel: 'перевод',
+    feedLabel: 'rss',
+    feedTitle: 'блог — site',
+    feedDescription: 'Новые посты блога.',
   },
 
   alpha: {

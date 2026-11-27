@@ -2,6 +2,7 @@
 import { content, localPath } from '../content';
 import type { Lang } from '../content';
 import { asset, href } from '../lib/url';
+import { hasEnglishPosts } from '../lib/blog';
 import '../styles/riso.css';
 
 interface Props {
@@ -11,9 +12,18 @@ interface Props {
   /** Полный <title> страницы из content.meta.pages — без склейки с именем проекта. */
   title: string;
   description: string;
+  /** 'article' на странице поста — вместе с publishedTime даёт og-разметку статьи. */
+  ogType?: 'website' | 'article';
+  /** ISO-дата публикации поста для article:published_time. */
+  publishedTime?: string;
+  /**
+   * Пути языковых версий без base — для hreflang и переключателя языка.
+   * Без пары перевода свой ключ не передаётся, и переключатель не рисуется.
+   */
+  alternates?: Partial<Record<Lang, string>>;
 }
 
-const { lang, path, title, description } = Astro.props;
+const { lang, path, title, description, ogType, publishedTime, alternates } = Astro.props;
 const t = content[lang];
 const pageTitle = title;
 const desc = description;
@@ -24,8 +34,15 @@ const here = Astro.url.pathname.replace(/\/+$/, '');
 const isCurrent = (itemPath: string) => href(localPath(itemPath, lang)).replace(/\/+$/, '') === here;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const altRu = new URL(href(localPath(path, 'ru')), Astro.site);
-const altEn = new URL(href(localPath(path, 'en')), Astro.site);
+const altPaths: Partial<Record<Lang, string>> = alternates ?? {
+  ru: localPath(path, 'ru'),
+  en: localPath(path, 'en'),
+};
+const altRu = altPaths.ru ? new URL(href(altPaths.ru), Astro.site) : undefined;
+const altEn = altPaths.en ? new URL(href(altPaths.en), Astro.site) : undefined;
+const altDefault = altRu ?? altEn;
+const switchTarget = alternates ? alternates[other] : localPath(path, other);
+const enFeed = (await hasEnglishPosts()) ? asset('/en/rss.xml') : undefined;
 ---
 
 <!doctype html>
@@ -39,12 +56,15 @@ const altEn = new URL(href(localPath(path, 'en')), Astro.site);
     <meta name="theme-color" content="#F3EDE0" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={desc} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType ?? 'website'} />
     <meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'en_US'} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="ru" href={altRu} />
-    <link rel="alternate" hreflang="en" href={altEn} />
-    <link rel="alternate" hreflang="x-default" href={altRu} />
+    {altRu && <link rel="alternate" hreflang="ru" href={altRu} />}
+    {altEn && <link rel="alternate" hreflang="en" href={altEn} />}
+    {altDefault && <link rel="alternate" hreflang="x-default" href={altDefault} />}
+    <link rel="alternate" type="application/rss+xml" title={t.blog.feedTitle} href={asset('/rss.xml')} />
+    {enFeed && <link rel="alternate" type="application/rss+xml" title={t.blog.feedTitle} href={enFeed} />}
   </head>
   <body class="grain">
     <a class="skip" href="#main">{t.meta.skip}</a>
@@ -64,17 +84,19 @@ const altEn = new URL(href(localPath(path, 'en')), Astro.site);
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                class="nav__lang"
-                href={href(localPath(path, other))}
-                lang={other}
-                hreflang={other}
-                aria-label={t.meta.switchAria}
-              >
-                {t.meta.switchLabel}
-              </a>
-            </li>
+            {switchTarget && (
+              <li>
+                <a
+                  class="nav__lang"
+                  href={href(switchTarget)}
+                  lang={other}
+                  hreflang={other}
+                  aria-label={t.meta.switchAria}
+                >
+                  {t.meta.switchLabel}
+                </a>
+              </li>
+            )}
           </ul>
         </nav>
       </div>

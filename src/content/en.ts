@@ -28,6 +28,10 @@ export const en: SiteContent = {
         title: 'hq — personal super-app',
         description: 'A personal super-app on one server and one database: SyncSource adapters, panels for everything.',
       },
+      blog: {
+        title: 'Nikita Makarichev — blog',
+        description: 'Posts by date: notes and write-ups, tagged and marked with their language.',
+      },
     },
     footer: 'print — risograph, build — astro',
     skip: 'skip to content',
@@ -38,6 +42,7 @@ export const en: SiteContent = {
       { label: 'home', path: '/' },
       { label: 'alpha', path: '/projects/alpha' },
       { label: 'hq', path: '/projects/hq' },
+      { label: 'blog', path: '/blog' },
       { label: 'resume', path: '/cv' },
       { label: 'about', path: '/about' },
     ],
@@ -94,6 +99,21 @@ export const en: SiteContent = {
       ['style', 'PLAYERPRINT · risograph zine'],
       ['languages', 'русский, english'],
     ],
+  },
+
+  blog: {
+    kicker: 'blog',
+    title: 'blog',
+    lead: 'Posts by date: topics are tagged, each post is marked with its language.',
+    empty: 'nothing here yet',
+    emptyNote: 'The first post is not written yet.',
+    tagsLabel: 'tags',
+    backToList: '← back to the list',
+    tocTitle: 'contents',
+    translationLabel: 'translation',
+    feedLabel: 'rss',
+    feedTitle: 'blog — site',
+    feedDescription: 'New posts from the blog.',
   },
 
   alpha: {

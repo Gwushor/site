@@ -12,11 +12,17 @@
 
 ## Блог
 
-Посты — markdown в `src/content/blog/`, один файл = один пост. Новый пост: положи
+Посты — markdown в `src/content/blog/`, один файл = один пост (без подкаталогов). Новый пост: положи
 `src/content/blog/<slug>.md` с frontmatter `title`, `description`, `date` (YYYY-MM-DD),
 `lang` (`ru`|`en`), `tags`, `draft` — и он появится в списке и в RSS. `draft: true` не
 попадает ни в сборку, ни в RSS; перевод связывается полем `translationOf: <slug-оригинала>`
 и даёт паре взаимные `hreflang`.
+
+Raw HTML в постах не поддерживается и удаляется при сборке; разметка санитайзером
+`hast-util-sanitize` (движок `rehype-sanitize`) дополнительно вычищает `script`/`iframe`/`style`,
+обработчики событий и ссылки `javascript:`/`data:` — пост с враждебным HTML собирается без
+исполняемых тегов, это гоняет CI (`npm run check:post-html`). Ссылки в постах пиши абсолютными
+(`https://…`) либо якорями (`#…`): относительные и корневые (`/…`) не переписываются под base `/site/`.
 
 Каналы RSS: `/rss.xml` (русские посты) и `/en/rss.xml` (английские, когда они есть).
 Проверка постов перед сборкой — `npm run check:blog`, её же гоняет CI.

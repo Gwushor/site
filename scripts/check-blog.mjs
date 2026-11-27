@@ -26,12 +26,29 @@ const parseFrontmatter = (raw) => {
 };
 
 const errors = [];
-const files = (await readdir(blogDir).catch(() => [])).filter((f) => /\.(md|mdx)$/.test(f)).sort();
+
+/** Все markdown-файлы блога — тот же обход, что и у коллекции (glob '**\/*.{md,mdx}'). */
+const walk = async (dir) => {
+  const found = [];
+  for (const entry of await readdir(dir, { withFileTypes: true }).catch(() => [])) {
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) found.push(...(await walk(full)));
+    else if (/\.(md|mdx)$/.test(entry.name)) found.push(full);
+  }
+  return found;
+};
+
+const files = (await walk(blogDir)).sort();
 const posts = [];
 
-for (const file of files) {
+for (const full of files) {
+  const file = full.slice(blogDir.length + 1);
+  if (file.includes('/')) {
+    errors.push(`${file}: пост в подкаталоге не поддержан — маршрут blog/[slug] плоский; перенеси файл в src/content/blog/`);
+    continue;
+  }
   const slug = file.replace(/\.(md|mdx)$/, '');
-  const raw = await readFile(join(blogDir, file), 'utf8');
+  const raw = await readFile(full, 'utf8');
   const { data, error } = parseFrontmatter(raw);
   if (error) {
     errors.push(`${file}: ${error}`);

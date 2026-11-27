@@ -249,21 +249,23 @@
   border-radius: var(--r);
 }
 
-/* shiki с темой css-variables красит спаны этими переменными */
+/* shiki с темой css-variables красит спаны через переменные с префиксом --astro-code-:
+   имена совпадают с темой один в один (background, foreground, token-*). */
 :root {
-  --astro-code-color: var(--ink-2);
-  --astro-code-bg: var(--paper-2);
-  --astro-code-constant: var(--A);
-  --astro-code-keyword: var(--A);
-  --astro-code-string: var(--C);
-  --astro-code-comment: var(--ink-3);
-  --astro-code-function: var(--ink);
-  --astro-code-parameter: var(--ink-2);
-  --astro-code-string-expression: var(--C);
-  --astro-code-punctuation: var(--ink-2);
-  --astro-code-plain: var(--ink-2);
-  --astro-code-tag: var(--A);
-  --astro-code-property: var(--ink);
+  --astro-code-foreground: var(--ink-2);
+  --astro-code-background: var(--paper-2);
+  --astro-code-token-keyword: var(--A);
+  --astro-code-token-constant: var(--A);
+  --astro-code-token-string: var(--C);
+  --astro-code-token-string-expression: var(--C);
+  --astro-code-token-function: var(--ink);
+  --astro-code-token-parameter: var(--ink-2);
+  --astro-code-token-punctuation: var(--ink-2);
+  --astro-code-token-comment: var(--ink-3);
+  --astro-code-token-link: var(--A);
+  --astro-code-token-inserted: var(--A);
+  --astro-code-token-deleted: var(--ink-3);
+  --astro-code-token-changed: var(--C);
 }
 
 .post-body table {

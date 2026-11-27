@@ -29,6 +29,8 @@ jobs:
 
       - run: npm run check:blog
 
+      - run: npm run check:post-html
+
       - run: npm run build
         env:
           ASTRO_TELEMETRY_DISABLED: '1'

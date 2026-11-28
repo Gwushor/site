@@ -112,8 +112,8 @@ export const en: SiteContent = {
     tocTitle: 'contents',
     translationLabel: 'translation',
     feedLabel: 'rss',
-    feedTitle: 'blog — site',
-    feedDescription: 'New posts from the blog.',
+    feedTitle: 'Blog — Nikita Makarichev',
+    feedDescription: 'Notes on Go and my own projects: money engines, event-driven systems, and tools I build for myself.',
   },
 
   alpha: {

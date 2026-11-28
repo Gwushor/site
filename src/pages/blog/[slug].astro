@@ -1,0 +1,34 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostView from '../../components/PostView.astro';
+import { publishedPosts, postPath, translationOf } from '../../lib/blog';
+import type { Lang } from '../../content';
+
+export async function getStaticPaths() {
+  const posts = await publishedPosts();
+  return posts
+    .filter((post) => post.data.lang === 'ru')
+    .map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const all = await publishedPosts();
+const pair = translationOf(post, all);
+const { Content, headings } = await render(post);
+
+const alternates: Partial<Record<Lang, string>> = { ru: postPath(post) };
+if (pair && pair.data.lang === 'en') alternates.en = postPath(pair);
+---
+
+<BaseLayout
+  lang="ru"
+  path={postPath(post)}
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  publishedTime={post.data.date.toISOString()}
+  alternates={alternates}
+>
+  <PostView lang="ru" post={post} translation={pair} {Content} {headings} />
+</BaseLayout>

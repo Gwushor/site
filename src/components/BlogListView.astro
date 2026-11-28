@@ -1,0 +1,71 @@
+---
+// Список постов своего языка; пустой список показывает «пока пусто».
+import { content } from '../content';
+import type { Lang } from '../content';
+import { asset, href } from '../lib/url';
+import { postsByLang, postPath } from '../lib/blog';
+import '../styles/blog.css';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = content[lang].blog;
+const posts = await postsByLang(lang);
+const dateFmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-US', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+// Английский канал существует только при английских постах — не ведём на пустой адрес.
+const feedHref = asset(lang === 'en' && posts.length > 0 ? '/en/rss.xml' : '/rss.xml');
+---
+
+<div class="page-head">
+  <span class="kicker">{t.kicker}</span>
+  <h1 class="riso-head">
+    <span class="pass pass--pink" data-text={t.title} aria-hidden="true"></span>
+    <span class="pass pass--blue" data-text={t.title} aria-hidden="true"></span>
+    {t.title}
+  </h1>
+  <p class="hero__lead">{t.lead}</p>
+</div>
+
+<hr class="rule" />
+
+<section class="section">
+  {posts.length === 0 ? (
+    <div class="empty">
+      <span class="tape" aria-hidden="true"></span>
+      <p class="empty__title">{t.empty}</p>
+      <p class="empty__note">{t.emptyNote}</p>
+    </div>
+  ) : (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li class="post-item">
+          <div class="post-item__meta">
+            <span class="post-item__date">{dateFmt.format(post.data.date)}</span>
+            <span class="chip">{post.data.lang}</span>
+          </div>
+          <h2 class="post-item__title">
+            <a href={href(postPath(post))}>{post.data.title}</a>
+          </h2>
+          <p class="post-item__desc">{post.data.description}</p>
+          {post.data.tags.length > 0 && (
+            <ul class="post-item__tags" aria-label={t.tagsLabel}>
+              {post.data.tags.map((tag) => (
+                <li class="chip">{tag}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+
+<div class="backline">
+  <a class="chip" href={feedHref}>{t.feedLabel} →</a>
+</div>

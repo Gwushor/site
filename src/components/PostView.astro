@@ -1,0 +1,77 @@
+---
+// Страница поста: шапка, оглавление длинного текста, тело, назад к списку.
+import type { RenderResult } from 'astro:content';
+import { content, localPath } from '../content';
+import type { Lang } from '../content';
+import { href } from '../lib/url';
+import { postPath, type Post } from '../lib/blog';
+import '../styles/blog.css';
+
+interface Props {
+  lang: Lang;
+  post: Post;
+  /** Пара перевода, если есть: ведёт на пост-перевод. */
+  translation?: Post;
+  Content: RenderResult['Content'];
+  headings: RenderResult['headings'];
+}
+
+const { lang, post, translation, Content, headings } = Astro.props;
+const t = content[lang].blog;
+const dateFmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-US', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+// Оглавление — только длинным постам: от трёх разделов второго уровня.
+const showToc = headings.filter((h) => h.depth === 2).length >= 3;
+const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+---
+
+<article>
+  <header class="post-head">
+    <div class="post-meta">
+      <span class="post-meta__date">{dateFmt.format(post.data.date)}</span>
+      <span class="chip">{post.data.lang}</span>
+    </div>
+    <h1 class="riso-head">
+      <span class="pass pass--pink" data-text={post.data.title} aria-hidden="true"></span>
+      <span class="pass pass--blue" data-text={post.data.title} aria-hidden="true"></span>
+      {post.data.title}
+    </h1>
+    <p class="post-lead">{post.data.description}</p>
+    {post.data.tags.length > 0 && (
+      <ul class="post-meta" aria-label={t.tagsLabel}>
+        {post.data.tags.map((tag) => (
+          <li class="chip">{tag}</li>
+        ))}
+      </ul>
+    )}
+  </header>
+
+  {showToc && (
+    <nav class="toc" aria-label={t.tocTitle}>
+      <span class="kicker toc__title">{t.tocTitle}</span>
+      <ol>
+        {toc.map((h) => (
+          <li class={h.depth === 3 ? 'toc--h3' : undefined}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+
+  <div class="post-body">
+    <Content />
+  </div>
+</article>
+
+<div class="backline">
+  <a class="btn" href={href(localPath('/blog', lang))}>{t.backToList}</a>
+  {translation && (
+    <a class="btn btn--blue" href={href(postPath(translation))}>
+      {t.translationLabel}: {translation.data.title} →
+    </a>
+  )}
+</div>

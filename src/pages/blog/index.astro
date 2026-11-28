@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogListView from '../../components/BlogListView.astro';
+import { content } from '../../content';
+
+const seo = content.ru.meta.pages.blog;
+---
+
+<BaseLayout lang="ru" path="/blog" title={seo.title} description={seo.description} alternates={{ ru: '/blog', en: '/en/blog' }}>
+  <BlogListView lang="ru" />
+</BaseLayout>

@@ -112,8 +112,8 @@ export const ru: SiteContent = {
     tocTitle: 'содержание',
     translationLabel: 'перевод',
     feedLabel: 'rss',
-    feedTitle: 'блог — site',
-    feedDescription: 'Новые посты блога.',
+    feedTitle: 'Блог — Никита Макаричев',
+    feedDescription: 'Заметки о Go и своих проектах: денежные движки, событийные системы, инструменты для себя.',
   },
 
   alpha: {
